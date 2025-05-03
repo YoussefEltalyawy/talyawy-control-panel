@@ -4,12 +4,12 @@ import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const domain = searchParams.get('domain');
+  const id = searchParams.get('id');
 
   const { data, error } = await supabase
     .from('projects')
     .select('*')
-    .eq('domain', domain)
+    .eq('id', id)
     .single();
   if (error || !data) {
     return new NextResponse(JSON.stringify({ error: 'Project not found' }), {
