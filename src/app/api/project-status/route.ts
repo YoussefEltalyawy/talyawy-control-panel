@@ -1,21 +1,31 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase';
+import { NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
-  const domain = req.nextUrl.searchParams.get('domain')
-  if (!domain) {
-    return NextResponse.json({ error: 'Missing domain' }, { status: 400 })
-  }
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const domain = searchParams.get('domain');
 
   const { data, error } = await supabase
     .from('projects')
-    .select('status')
+    .select('*')
     .eq('domain', domain)
-    .single()
-
+    .single();
   if (error || !data) {
-    return NextResponse.json({ error: 'Project not found' }, { status: 404 })
+    return new NextResponse(JSON.stringify({ error: 'Project not found' }), {
+      status: 404,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
-  return NextResponse.json({ status: data.status })
+  return new NextResponse(JSON.stringify(data), {
+    status: 200,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json',
+    },
+  });
 }
