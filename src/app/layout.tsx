@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { GeistSans } from 'geist/font/sans';
 import { ThemeProvider } from "@/components/theme-provider";
-import Header from "@/components/Header";
 import { Toaster } from "@/components/ui/sonner";
 
 
@@ -26,7 +25,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
             {children}
                     <Toaster />
           </ThemeProvider>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import Header from '@/components/Header';
 import ProjectTable from '@/components/ProjectTable'
 import Overview from '@/components/Overview'
 
@@ -30,9 +31,12 @@ export default function Dashboard() {
   }, [])
 
   return (
-    <div className="p-8 mx-auto">
-      <Overview projects={projects} />
-      <ProjectTable projects={projects} onStatusChange={fetchProjects} />
+    <div className="mx-auto">
+      <Header onProjectCreated={fetchProjects} />
+      <div className="p-8">
+        <Overview projects={projects} />
+        <ProjectTable projects={projects} onStatusChange={fetchProjects} />
+      </div>
     </div>
   )
 }
