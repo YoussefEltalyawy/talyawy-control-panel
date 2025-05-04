@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { GeistSans } from 'geist/font/sans';
+import { ThemeProvider } from "@/components/theme-provider";
+import Header from "@/components/Header";
+import { Toaster } from "@/components/ui/sonner";
 
 
 export const metadata: Metadata = {
@@ -13,10 +17,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body suppressHydrationWarning={true}
+    <html lang="en" className={GeistSans.className}>
+      <body
       >
-        {children}
+      <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            {children}
+                    <Toaster />
+          </ThemeProvider>
       </body>
     </html>
   );
