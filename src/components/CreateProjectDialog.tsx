@@ -11,8 +11,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input"; // Assuming you have an Input component
-import { Label } from "@/components/ui/label"; // Assuming you have a Label component
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 type CreateProjectDialogProps = {
@@ -63,11 +63,13 @@ export default function CreateProjectDialog({
       setDomain("");
       onProjectCreated(); // Refresh the list in the parent component
       onOpenChange(false); // Close the dialog
-    } catch (error: any) {
-      // Catch specific Supabase error if possible
+    } catch (error) {
+      // Properly type the error
       console.error("Error creating project:", error);
       toast.error(
-        `Failed to create project: ${error.message || "Unknown error"}`
+        `Failed to create project: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
       );
     } finally {
       setIsLoading(false);
@@ -80,7 +82,8 @@ export default function CreateProjectDialog({
         <DialogHeader>
           <DialogTitle>Create New Project</DialogTitle>
           <DialogDescription>
-            Enter the details for your new project. Click save when you're done.
+            Enter the details for your new project. Click save when you&apos;re
+            done.
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit}>

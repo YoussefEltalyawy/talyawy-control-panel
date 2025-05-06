@@ -196,9 +196,9 @@ export default function ProjectTable({
           title="Delete Project"
           description={
             <>
-              Are you sure you want to delete the project "
-              <strong>{projectToDelete.name}</strong>"? This action cannot be
-              undone.
+              Are you sure you want to delete the project &apos;
+              <strong>{projectToDelete.name}</strong>&apos;? This action cannot
+              be undone.
             </>
           }
           confirmText="Delete Project"
